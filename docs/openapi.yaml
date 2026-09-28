@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info: {title: TalentBridge Scale API, version: 1.0.0}
+servers: [{url: http://localhost:4000/api}]
+paths:
+  /internships:
+    get:
+      summary: Server-side search/filter/sort/pagination
+      parameters:
+        - {name: search, in: query, schema: {type: string}, example: react}
+        - {name: location, in: query, schema: {type: string}, example: Lahore}
+        - {name: category, in: query, schema: {type: string}, example: Engineering}
+        - {name: sort, in: query, schema: {type: string, enum: [created_desc, created_asc, title_asc, title_desc]}, example: created_desc}
+        - {name: page, in: query, schema: {type: integer, minimum: 1}, example: 2}
+        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50}, example: 12}
+      responses: {'200': {description: Paginated data}}
+  /companies/{id}/logo:
+    post:
+      security: [{bearerAuth: []}]
+      requestBody: {required: true, content: {multipart/form-data: {schema: {type: object, required: [file], properties: {file: {type: string, format: binary}}}}}}
+      responses: {'201': {description: Uploaded}, '403': {description: Ownership denied}, '422': {description: Invalid file}}
+  /students/{id}/resume:
+    post:
+      security: [{bearerAuth: []}]
+      requestBody: {required: true, content: {multipart/form-data: {schema: {type: object, required: [file], properties: {file: {type: string, format: binary}}}}}}
+      responses: {'201': {description: Uploaded}, '403': {description: Ownership denied}, '422': {description: Invalid file}}
+components:
+  securitySchemes: {bearerAuth: {type: http, scheme: bearer}}
