@@ -1,0 +1,1 @@
+import "dotenv/config";import path from "node:path";export const config={port:Number(process.env.PORT||4000),jwtSecret:process.env.JWT_SECRET||"dev-secret",uploadDir:path.resolve(process.env.UPLOAD_DIR||"./storage"),corsOrigin:process.env.CORS_ORIGIN||"http://localhost:5173"};
