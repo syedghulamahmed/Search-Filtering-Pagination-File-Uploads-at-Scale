@@ -1,0 +1,2 @@
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT i.id,i.title,i.location,i.category,i."createdAt",c.name FROM "Internship" i JOIN "Company" c ON c.id=i."companyId" WHERE i.location='Lahore' AND i.category='Engineering' ORDER BY i."createdAt" DESC LIMIT 12 OFFSET 0;
